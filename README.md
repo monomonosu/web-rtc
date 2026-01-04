@@ -35,6 +35,13 @@ npm run dev
 
 アプリケーションは http://localhost:3000 で起動します。
 
+## デプロイ
+
+本番環境へのデプロイ方法については、[DEPLOYMENT.md](./DEPLOYMENT.md) を参照してください。
+
+- Socket.IOサーバー: Render
+- Next.jsフロントエンド: Vercel
+
 ## 使い方
 
 ### 1. ルームを作成
@@ -108,9 +115,13 @@ web-rtc/
 │       └── socket.ts
 │
 ├── server/                      # カスタムサーバー
-│   ├── index.ts                # Next.js + Socket.io統合
+│   ├── index.ts                # Next.js + Socket.io統合（開発用）
+│   ├── standalone.ts           # Socket.ioサーバー（本番用）
 │   └── socketHandler.ts        # Socket.ioイベントハンドラ
 │
+├── DEPLOYMENT.md               # デプロイガイド
+├── render.yaml                 # Render設定ファイル
+├── tsconfig.server.json        # サーバー用TypeScript設定
 └── package.json
 ```
 

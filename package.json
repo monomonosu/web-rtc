@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "tsx server/index.ts",
     "build": "next build",
+    "build:server": "tsc -p tsconfig.server.json",
     "start": "NODE_ENV=production tsx server/index.ts",
+    "start:server": "node dist/server/standalone.js",
     "lint": "next lint"
   },
   "dependencies": {

@@ -39,7 +39,12 @@ npm run dev
 
 本番環境へのデプロイ方法については、[DEPLOYMENT.md](./DEPLOYMENT.md) を参照してください。
 
-- Socket.IOサーバー: Render
+### 推奨構成（クレジットカード不要）
+- Socket.IOサーバー: **Koyeb** (無料プラン、クレジットカード不要)
+- Next.jsフロントエンド: **Vercel** (無料プラン)
+
+### 代替構成
+- Socket.IOサーバー: Render (クレジットカード必要)
 - Next.jsフロントエンド: Vercel
 
 ## 使い方

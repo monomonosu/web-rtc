@@ -67,10 +67,7 @@ export const useWebRTC = ({
           peerConnection.connectionState
         );
 
-        if (
-          peerConnection.connectionState === 'connected' ||
-          peerConnection.connectionState === 'completed'
-        ) {
+        if (peerConnection.connectionState === 'connected') {
           setConnectionStatus('connected');
         } else if (peerConnection.connectionState === 'failed') {
           setConnectionStatus('failed');

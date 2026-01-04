@@ -49,7 +49,8 @@ Koyeb offers native WebSocket support without requiring a credit card for the fr
 4. Configure project:
    - **Framework Preset**: Next.js (auto-detected)
    - **Root Directory**: `./`
-   - Leave build settings as default
+   - **Build Command**: Leave as default (Vercel will automatically run `next build`)
+   - **Output Directory**: Leave as default (`.next`)
 5. Add Environment Variables:
    - **Key**: `NEXT_PUBLIC_SOCKET_URL`
    - **Value**: Your Koyeb service URL (e.g., `https://webrtc-signaling-server-yourname.koyeb.app`)

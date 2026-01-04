@@ -14,10 +14,27 @@ export const useSocket = () => {
   const socketRef = useRef<TypedSocket | null>(null);
 
   useEffect(() => {
-    // Initialize socket connection
+    // Initialize socket connection with optimized settings
     const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3000';
     const socket: TypedSocket = io(socketUrl, {
+      // Prefer WebSocket for better performance
       transports: ['websocket', 'polling'],
+
+      // Reconnection settings
+      reconnection: true,
+      reconnectionDelay: 1000, // Start with 1 second delay
+      reconnectionDelayMax: 5000, // Max 5 seconds
+      reconnectionAttempts: 5, // Try 5 times before giving up
+
+      // Timeouts (should match server settings)
+      timeout: 45000, // 45 seconds connection timeout
+
+      // Upgrade settings
+      upgrade: true,
+      rememberUpgrade: true,
+
+      // Auto-connect
+      autoConnect: true,
     });
 
     socket.on('connect', () => {

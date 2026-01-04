@@ -253,6 +253,105 @@ Both services are configured for **automatic deployment**:
 
 ---
 
+## Performance & Scalability
+
+### Koyeb Free Tier Capacity
+
+The application is optimized for the Koyeb free tier with the following realistic limits:
+
+**Resource Limits:**
+- 512 MB RAM
+- 0.1 vCPU
+- 2 GB bandwidth/month
+
+**Realistic User Capacity:**
+
+| Use Case | Concurrent Users | Monthly Active Users |
+|----------|------------------|---------------------|
+| **Small demo/testing** | 10-30 users | 500-1,000 users |
+| **Peak load** | Up to 50 users* | 200-500 users |
+| **Comfortable usage** | 20-30 users | 300-800 users |
+
+\* Performance may degrade at peak loads
+
+**Per Room Recommendations:**
+- Optimal: 2-4 users per room
+- Maximum: 5-8 users per room
+- Multiple rooms: 5-10 concurrent rooms
+
+### Performance Optimizations Implemented
+
+This application includes several optimizations to maximize performance on limited resources:
+
+**Server-Side (Socket.IO):**
+- ✅ WebSocket compression disabled (`perMessageDeflate: false`) - saves ~30-40% memory
+- ✅ Optimized ping/pong intervals (25s/60s) - reduces overhead
+- ✅ Connection monitoring and stats logging
+- ✅ Graceful shutdown handling
+- ✅ Memory-efficient transport settings
+
+**Client-Side:**
+- ✅ WebSocket-first connection strategy
+- ✅ Automatic reconnection with backoff
+- ✅ Optimized timeout settings
+- ✅ Connection state management
+
+**WebRTC Architecture:**
+- ✅ P2P (Peer-to-Peer) video/audio transmission - server only handles signaling
+- ✅ Minimal server bandwidth usage - only JSON signaling messages
+- ✅ Direct media streams between clients
+
+### Monitoring Performance
+
+The server logs connection statistics every 5 minutes. Check Koyeb logs to monitor:
+
+```
+📊 Stats | Active connections: 15
+```
+
+**Warning Signs:**
+- Connection counts consistently above 40-50
+- Memory usage approaching 450-500 MB
+- Slow response times (>2 seconds for signaling)
+
+### Scaling Beyond Free Tier
+
+When you need more capacity:
+
+**Option 1: Upgrade Koyeb Plan**
+
+| Plan | Price | RAM | vCPU | Capacity |
+|------|-------|-----|------|----------|
+| Nano | $5/mo | 1 GB | 0.5 | 100-200 users |
+| Micro | $15/mo | 2 GB | 1 | 500-1,000 users |
+| Small | $30/mo | 4 GB | 2 | 2,000-5,000 users |
+
+**Option 2: Optimize Further**
+- Implement Redis adapter for multi-server scaling
+- Add load balancing
+- Use dedicated TURN servers for NAT traversal
+- Implement connection pooling
+
+**Option 3: Alternative Platforms**
+- Dedicated VPS (DigitalOcean, Linode)
+- Managed WebSocket services (Pusher, Ably)
+- Cloud platforms (AWS, GCP, Azure)
+
+### Bandwidth Estimation
+
+**Per Connection:**
+- Initial handshake: ~10-20 KB
+- WebRTC signaling (offer/answer/ICE): ~30-50 KB
+- Ongoing heartbeats: ~1-2 KB/minute
+
+**Monthly Bandwidth (2 GB limit):**
+- ~40,000-200,000 connection establishments
+- With P2P, video/audio data doesn't count toward server bandwidth ✅
+
+**Tip:** Once WebRTC P2P connection is established, the server is only used for signaling reconnections, making bandwidth usage very low.
+
+---
+
 ## Next Steps
 
 After successful deployment:
